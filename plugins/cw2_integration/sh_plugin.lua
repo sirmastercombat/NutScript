@@ -55,7 +55,7 @@ attachmentBase:hook("drop", function(item)
 	end
 end)
 
-if(PLUGIN.AutoGenCW2Items)then
+if(PLUGIN.AutoGenCW2Items and cw2stuff)then
 	PLUGIN.AttachmentPrice = {
 		["default"] = 30
 	}
