@@ -146,10 +146,19 @@ else
 
 				return true
 			elseif (bind:find("slot")) then
-				self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #LocalPlayer():GetWeapons())
-				self:onIndexChanged()
+					if(weapon:GetClass():find("cw_"))then
+						if(weapon.dt.State != CW_CUSTOMIZE)then
+							self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #LocalPlayer():GetWeapons())
+							self:onIndexChanged()
 
-				return true
+							return true
+						end
+					else
+						self.index = math.Clamp(tonumber(bind:match("slot(%d)")) or 1, 1, #LocalPlayer():GetWeapons())
+						self:onIndexChanged()
+
+						return true
+					end
 			elseif (bind:find("attack") and pressed and self.alpha > 0) then
 				LocalPlayer():EmitSound(hook.Run("WeaponSelectSound", LocalPlayer():GetWeapons()[self.index]) or "buttons/button16.wav")
 

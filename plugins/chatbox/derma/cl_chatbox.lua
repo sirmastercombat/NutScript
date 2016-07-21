@@ -124,6 +124,9 @@ local PANEL = {}
 			self.entry.Paint = function(this, w, h)
 			end
 			self.entry.OnRemove = function()
+				--TODO: Check to see if this fix works.
+				self.entry:SetMouseInputEnabled( false )--Forces the thing to stop glitching our chat hopefully
+				self.entry:SetKeyboardInputEnabled( false )--Same as above
 				hook.Run("FinishChat")
 			end
 			self.entry:SetTall(28)

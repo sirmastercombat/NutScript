@@ -182,21 +182,37 @@ local PANEL = {}
 				AddMenuLabel("create", function()
 					ClearAllButtons(function()
 						CreateReturnButton()
+						self.factionList = self:Add("DScrollPanel")
+						--self.factionList:SetPos(x, y-32)
+						self.factionList:SetPos(x, ScrH() * 0.35 + 16)
+						self.factionList:SetTall(ScrH() * 0.50)
+						self.factionList:SetWide(ScrW() * 0.25)
+						self.factionList:SetAlpha(255)
+						self.factionList:GetVBar():SetAlpha(0)
+						self.factionList:GetVBar():AlphaTo(255, 0.5, 0)
+						self.factionList:SetContentAlignment( 7 )
+						--self.fadePanels[#self.fadePanels + 1] = self.factionList
+						self.fadePanels[#self.fadePanels + 1] = self.factionList:GetVBar()
+						--self.factionList:Dock(TOP)
 
 						local fadedIn = false
 
+
+						
 						for k, v in SortedPairs(nut.faction.teams) do
 							if (nut.faction.hasWhitelist(v.index)) then
-								AddMenuLabel(L(v.name), function()
+								local newlabel = AddMenuLabel(L(v.name), function()
 									if (!self.creation or self.creation.faction != v.index) then
 										self.creation = self:Add("nutCharCreate")
 										self.creation:SetAlpha(fadedIn and 255 or 0)
 										self.creation:setUp(v.index)
 										self.creation:AlphaTo(255, 0.5, 0)
+										self.creation:SetPos(ScrW() * 0.35, ScrH() * 0.3 + 16)
+
 										self.fadePanels[#self.fadePanels + 1] = self.creation
 	
 										self.finish = self:Add("nutMenuButton")
-										self.finish:SetPos(ScrW() * 0.3 - 32, ScrH() * 0.3 + 16)
+										self.finish:SetPos(ScrW() * 0.35 - 32, ScrH() * 0.3 + 16)
 										self.finish:setText("finish")
 										self.finish:MoveBelow(self.creation, 4)
 										self.finish.DoClick = function(this)
@@ -273,8 +289,17 @@ local PANEL = {}
 										fadedIn = true
 									end
 								end)
+								newlabel:SetParent(self.factionList)
+								newlabel:Dock(TOP)
+								newlabel:InvalidateLayout()
 							end
 						end
+											
+						--self.factionList:SizeToContents()
+						self.factionList:SetContentAlignment( 7 )
+						self.factionList:InvalidateLayout()
+						self.factionList:GetVBar():SetEnabled( true )
+						self.factionList:GetVBar():SetScroll( 0 )
 					end)
 				end)
 			end

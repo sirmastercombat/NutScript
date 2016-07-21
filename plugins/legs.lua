@@ -115,7 +115,8 @@ function PLUGIN:checkChanges()
 			return true
 		end
 	end
-
+	--TODO: Someone fix this, causes extreme lag on certain models, though it might not be needed.
+	--[[
 	local newMaterials = client:GetMaterials()
 	local materials = self.legs:GetMaterials()
 
@@ -123,7 +124,7 @@ function PLUGIN:checkChanges()
 		if (v != newMaterials[k]) then
 			return true
 		end
-	end
+	end--]]
 end
 
 local PLUGIN = PLUGIN

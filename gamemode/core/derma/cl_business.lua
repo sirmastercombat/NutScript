@@ -217,6 +217,8 @@ function PANEL:loadItems(category, search)
 			self.itemList:Add("nutBusinessItem"):setItem(itemTable)
 		end
 	end
+	self.scroll:GetVBar():SetEnabled( true )
+	self.scroll:GetVBar():SetScroll( 0 )
 end
 
 function PANEL:setPage()
