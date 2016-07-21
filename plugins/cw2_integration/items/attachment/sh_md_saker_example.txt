@@ -1,3 +1,4 @@
 ITEM.name = "SAKER Silencer"
 ITEM.desc = "A silencer."
 ITEM.model = "models/cw2/attachments/556suppressor.mdl"
+--Rename this file sh_<attachment name here, IE: md_saker>.lua
