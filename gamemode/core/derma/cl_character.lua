@@ -289,6 +289,7 @@ local PANEL = {}
 										fadedIn = true
 									end
 								end)
+								newlabel:SetTooltip(L(v.desc))
 								newlabel:SetParent(self.factionList)
 								newlabel:Dock(TOP)
 								newlabel:InvalidateLayout()
