@@ -333,10 +333,14 @@ function GM:PlayerLoadout(client)
 		client:Give("nut_hands")
 		client:SetWalkSpeed(nut.config.get("walkSpeed"))
 		client:SetRunSpeed(nut.config.get("runSpeed"))
+		local targetHealth = 100
 		
 		local faction = nut.faction.indices[client:Team()]
 
 		if (faction) then
+			if(faction.health)then
+				targetHealth = faction.health
+			end
 			-- If their faction wants to do something when the player spawns, let it.
 			if (faction.onSpawn) then
 				faction:onSpawn(client)
@@ -354,6 +358,9 @@ function GM:PlayerLoadout(client)
 		local class = nut.class.list[client:getChar():getClass()]
 
 		if (class) then
+			if(class.health)then
+				targetHealth = class.health
+			end
 			if (class.onSpawn) then
 				class:onSpawn(client)
 			end
@@ -372,8 +379,8 @@ function GM:PlayerLoadout(client)
 		hook.Run("PostPlayerLoadout", client)
 
 		client:SelectWeapon("nut_hands")
-		client:SetHealth(class.health or faction.health or 100)
-		client:SetMaxHealth(class.maxhealth or faction.maxhealth or 100)
+		client:SetHealth(targetHealth or 100)
+		client:SetMaxHealth(targetHealth or 100)
 	else
 		client:SetNoDraw(true)
 		client:Lock()
